@@ -1,0 +1,152 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+import ContactCTA from '../components/ContactCTA.astro';
+import Hero from '../components/Hero.astro';
+---
+
+<BaseLayout title="About | John Oatey" description="About John Oatey">
+	<div class="stack gap-20">
+		<main class="wrapper about">
+			<Hero
+				title="About"
+				tagline="Thanks for checking out my website. Here's a bit more about me!"
+			>
+				<img
+					width="1553"
+					height="873"
+					src="/assets/teluride.jpg"
+					alt="Beautiful campsite view in Teluride, CO."
+				/>
+			</Hero>
+
+			<section>
+				<h2 class="section-title">Background</h2>
+				<div class="content">
+					<p>
+						Ever since high school, I was tinkering and building things involving computers. I ended
+						up going to college to become a biomedical engineer, didn't like the biology or the basic engineering courses, 
+						and promptly switched to computer science. I've been a software engineer ever since. I've worked at a few different
+						companies, often ending up working on critical backend systems. That's where I find my passion, solving complex
+						problems involving optimization of data transfer.
+					</p>
+					<br />
+					<p>
+						However, I'd like to talk a bit more about me personally, not just professionally. I've always loved 
+						video games. I've sort of been a gamer my whole life, I guess. I would always find myself diving deep into
+						the systems of complex RPG's, trying to figure out how they worked. Due to that, I've been trying to learn
+						as much as I can about game development. I've been working on a few projects, but I'm not quite ready to
+						show them off yet. I'm hoping to have something to show off soon, though!
+					</p>
+					<br />
+					<p>
+						I also love to travel. I've been to a few different countries, and I'm always looking for new places to go.
+						I've been to a couple different national parks, such as Zion and Arches. Hopefully I can make it a common vacation
+						to visit some new parks. My fiance and I are also planning on getting married in the next year or so, so we're
+						looking forward to that. We visited Edinburgh, Scotland last year and plan to go to Japan for our honeymoon.
+					</p>
+					<br />
+					<p>
+						Speaking of Japan, I've been learning Japanese for over a year now. 日本語が難しいね. It's been going pretty well.
+						I think I can get the vibe of sentences now, but there's a lot to learn. Hopefully by the time I visit Japan I can
+						have some basic conversations with people.
+					</p>
+					<br />
+					<p>
+						There's much more to know about me, but I'll let you find out the rest on your own. If you'd like to get in touch,
+						you can find my contact information at the bootom of this page.
+					</p>
+				</div>
+			</section>
+			<section>
+				<h2 class="section-title">Education</h2>
+				<div class="content">
+					<p>BS in Computer Science from the University of Missouri, Columbia. MIZ!</p>
+				</div>
+			</section>
+			<section>
+				<h2 class="section-title">Skills</h2>
+				<div class="grid-container">
+					<div class="grid-item">Python</div>
+					<div class="grid-item">.Net</div>
+					<div class="grid-item">Go</div>
+					<div class="grid-item">TypeScript</div>
+					<div class="grid-item">Postgres</div> 
+					<div class="grid-item">MySql</div> 
+					<div class="grid-item">Neo4j</div>
+					<div class="grid-item">Redis</div>
+					<div class="grid-item">AWS</div>
+					<div class="grid-item">Git</div>
+					<div class="grid-item">Unity</div>
+					<div class="grid-item">Godot</div>
+					<div class="grid-item">ElasticSearch</div>
+					<div class="grid-item">GraphQL</div>
+					<div class="grid-item">REST</div>
+					<div class="grid-item">React</div>
+					<div class="grid-item">Angular</div>
+					<div class="grid-item">Microservices</div>
+				</div>
+			</section>
+		</main>
+
+		<ContactCTA />
+	</div>
+</BaseLayout>
+
+<style>
+	.about {
+		display: flex;
+		flex-direction: column;
+		gap: 3.5rem;
+	}
+
+	img {
+		margin-top: 1.5rem;
+		border-radius: 1.5rem;
+		box-shadow: var(--shadow-md);
+	}
+
+	section {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		color: var(--gray-200);
+	}
+
+	.section-title {
+		grid-column-start: 1;
+		font-size: var(--text-xl);
+		color: var(--gray-0);
+	}
+
+	.content {
+		grid-column: 2 / 4;
+	}
+
+	.content :global(a) {
+		text-decoration: 1px solid underline transparent;
+		text-underline-offset: 0.25em;
+		transition: text-decoration-color var(--theme-transition);
+	}
+
+	.content :global(a:hover),
+	.content :global(a:focus) {
+		text-decoration-color: currentColor;
+	}
+
+	@media (min-width: 50em) {
+		.about {
+			display: grid;
+			grid-template-columns: 1fr 60% 1fr;
+		}
+
+		.about > :global(:first-child) {
+			grid-column-start: 2;
+		}
+
+		section {
+			display: contents;
+			font-size: var(--text-lg);
+		}
+	}
+</style>
