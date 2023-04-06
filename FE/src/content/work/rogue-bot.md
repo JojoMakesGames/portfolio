@@ -31,7 +31,7 @@ security bot to half health, you can hack them and cause more chaos!
 How does a player cause chaos? Well, due to time constraints, barrels were just placed around the city, which give points
 on destruction.
 
-### What we did well:
+##### What we did well:
 
 1) We had little to no experience with the Godot engine, so figuring all that out in this jam was a fun challenge
 2) There is an actual level
@@ -42,7 +42,7 @@ and the code quality dropped. I also learned more about signals in Godot, which 
 was used to
 5) WE FINISHED A GAME. I think this alone is an amazing thing. Getting the ball rolling is the hardest step in any process
 
-### Missing Features:
+##### Missing Features:
 
 Some glaring ommissions were made to meet the time crunch. Unfortunately, I had prior committments on the weekend,
 so it was more a 4 day game jam.
@@ -69,7 +69,7 @@ GDScript itself was really easy to use. It shares a lot of features many modern 
 say it's closest to Python if you had to delineate. Types aren't required, but in my experience, types make future development
 infinitely easier. 
 
-##### Closing Remaks
+### Closing Remarks
 
 I would recommend a game jam to any aspiring game dev. It was a great learning experience and something I will always
 remember fondly with my co-creator/friend. I'm planning on doing a game jams in the future as a way to level up
