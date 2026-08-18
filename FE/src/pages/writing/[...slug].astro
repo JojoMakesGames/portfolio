@@ -1,0 +1,104 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+	const writing = await getCollection('writing');
+	return writing.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+type Props = { entry: CollectionEntry<'writing'> };
+const { entry } = Astro.props;
+const { title, description, tags, publishDate } = entry.data;
+const { Content } = await render(entry);
+const dateLabel = publishDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+---
+
+<BaseLayout title={`${title} — John Oatey`} description={description}>
+	<article>
+		<header class="wrapper intro stack">
+			<a class="back" href="/work/">← Writing</a>
+			<span class="eyebrow">Deep dive · {dateLabel}</span>
+			<h1>{title}</h1>
+			<p class="lede">{description}</p>
+			<div class="tags">
+				{tags.map((t) => <span class="pill">{t}</span>)}
+			</div>
+		</header>
+
+		<div class="wrapper prose">
+			<Content />
+		</div>
+	</article>
+</BaseLayout>
+
+<style>
+	.intro {
+		gap: 1rem;
+		padding-block: clamp(2.5rem, 5vw, 4rem) 1.5rem;
+		align-items: flex-start;
+	}
+
+	.back {
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		color: var(--muted);
+	}
+
+	.intro h1 {
+		font-size: clamp(2.1rem, 4.5vw, 3rem);
+		max-width: 22ch;
+	}
+
+	.lede {
+		font-size: 1.15rem;
+		color: var(--muted);
+		max-width: 54ch;
+	}
+
+	.tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.prose {
+		max-width: 68ch;
+		padding-block: 1.75rem 3.5rem;
+	}
+
+	.prose :global(h2),
+	.prose :global(h3),
+	.prose :global(h4),
+	.prose :global(h5) {
+		margin-top: 2rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.prose :global(p),
+	.prose :global(ul),
+	.prose :global(ol) {
+		margin-bottom: 1rem;
+	}
+
+	.prose :global(blockquote) {
+		border-inline-start: 3px solid var(--accent);
+		padding-inline-start: 1.25rem;
+		color: var(--muted);
+		font-style: italic;
+	}
+
+	.prose :global(a) {
+		text-decoration: underline;
+		text-underline-offset: 0.2em;
+		word-break: break-word;
+	}
+
+	.prose :global(code) {
+		font-family: var(--font-mono);
+		font-size: 0.9em;
+		background: var(--surface-2);
+		padding: 0.1em 0.35em;
+		border-radius: 5px;
+	}
+</style>

@@ -1,0 +1,33 @@
+---
+interface Props {
+	id?: string | undefined;
+	glow?: boolean;
+}
+
+const { id, glow = false } = Astro.props;
+---
+
+<section id={id} class:list={['band-section', { glow }]}>
+	<div class="wrapper">
+		<slot />
+	</div>
+</section>
+
+<style>
+	.band-section {
+		background: var(--bg-band);
+		border-top: 1px solid var(--line-strong);
+		border-bottom: 1px solid var(--line-strong);
+		padding-block: clamp(3.5rem, 7vw, 5.25rem);
+	}
+
+	.band-section.glow {
+		background: radial-gradient(
+				900px 400px at 50% 0%,
+				color-mix(in oklab, var(--accent) 14%, transparent),
+				transparent 60%
+			),
+			var(--bg-band);
+		border-bottom: 0;
+	}
+</style>

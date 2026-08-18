@@ -1,0 +1,110 @@
+---
+import SectionBand from './SectionBand.astro';
+
+const FORM_ENDPOINT = 'https://formspree.io/f/your-form-id';
+const EMAIL = 'john.oatey@kittenmittengames.com';
+---
+
+<SectionBand id="contact" glow>
+	<div class="contact card">
+		<div class="pitch stack">
+			<span class="eyebrow">03 / Contact</span>
+			<h2>What manual process is costing you the most?</h2>
+			<p>
+				[Draft] Tell me about it and I'll tell you what automating it looks like. Or email
+				<a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+			</p>
+		</div>
+		<form class="form" action={FORM_ENDPOINT} method="POST">
+			<div class="row">
+				<label class="field">
+					<span class="sr-only">Name</span>
+					<input type="text" name="name" placeholder="Name" required />
+				</label>
+				<label class="field">
+					<span class="sr-only">Company</span>
+					<input type="text" name="company" placeholder="Company" />
+				</label>
+			</div>
+			<label class="field">
+				<span class="sr-only">The process you want gone</span>
+				<textarea name="message" rows="4" placeholder="The manual / stale process you want gone…" required></textarea>
+			</label>
+			<button class="btn btn-primary" type="submit">Send it over</button>
+		</form>
+	</div>
+</SectionBand>
+
+<style>
+	.contact {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 2rem;
+		align-items: center;
+		background: var(--inset);
+		padding: clamp(1.75rem, 4vw, 3.25rem);
+	}
+
+	.pitch {
+		gap: 1rem;
+		align-items: flex-start;
+	}
+
+	.pitch h2 {
+		font-size: clamp(1.6rem, 3vw, 2.25rem);
+	}
+
+	.pitch p {
+		color: var(--muted);
+	}
+
+	.form {
+		display: flex;
+		flex-direction: column;
+		gap: 0.85rem;
+	}
+
+	.row {
+		display: flex;
+		gap: 0.85rem;
+	}
+
+	.field {
+		flex: 1;
+		display: block;
+	}
+
+	input,
+	textarea {
+		width: 100%;
+		padding: 0.85rem 1rem;
+		font-family: inherit;
+		font-size: 0.95rem;
+		color: var(--fg);
+		background: var(--surface-2);
+		border: 1px solid var(--line-strong);
+		border-radius: var(--radius-sm);
+		resize: vertical;
+	}
+
+	input::placeholder,
+	textarea::placeholder {
+		color: var(--muted-2);
+	}
+
+	input:focus,
+	textarea:focus {
+		outline: none;
+		border-color: var(--accent);
+	}
+
+	button {
+		justify-content: center;
+	}
+
+	@media (min-width: 52em) {
+		.contact {
+			grid-template-columns: 1fr 1fr;
+		}
+	}
+</style>

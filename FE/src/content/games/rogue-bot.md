@@ -2,13 +2,18 @@
 title: ROGUEbot
 publishDate: 2023-04-06 00:00:00
 img: /assets/RogueBot.png
-img_alt: Pearls of silky soft white cotton, bubble up under vibrant lighting
+img_alt: ROGUEbot gameplay — a rogue robot causing chaos in the city
 description: |
   Entry for my very first game jam.
 tags:
   - Game Dev
   - Godot
   - Learning
+engine: Godot
+jamNumber: 1
+jamTheme: Robots
+playUrl: https://sabertooth-software.itch.io/rogue-bot
+sourceUrl: https://github.com/Sabertooth-Software/Rogue-Bot
 ---
 
 

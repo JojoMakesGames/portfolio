@@ -1,54 +1,244 @@
 ---
-interface Props {
-	title: string;
-	tagline?: string;
-	align?: 'start' | 'center';
-}
-
-const { align = 'center', tagline, title } = Astro.props;
 ---
 
-<header class:list={['hero stack gap-4', align]}>
-	<div class="stack gap-2">
-		<h1 class="title">{title}</h1>
-		{tagline && <p class="tagline">{tagline}</p>}
+<section class="hero wrapper">
+	<div class="intro stack">
+		<span class="eyebrow">Software Consultant · Chicago</span>
+		<h1>
+			I turn manual, error-prone <span class="hl">busywork</span> into systems that run
+			themselves.
+		</h1>
+		<p class="lede">
+			[DRAFT — your copy] I help businesses become self-sufficient: fewer mistakes from
+			manual data entry, fewer stale processes, more time spent on the work that actually
+			matters.
+		</p>
+		<div class="actions">
+			<a class="btn btn-primary" href="/#contact">
+				Start a project
+				<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>
+			</a>
+			<a class="btn btn-ghost" href="/work/">See the work</a>
+		</div>
 	</div>
-	<slot />
-</header>
+
+	<div class="viz" aria-hidden="true">
+		<span class="viz-label">manual → automated</span>
+		<svg viewBox="0 0 560 480">
+			<g class="order">
+				<path d="M70 240 C 150 240, 150 130, 232 130" class="rail"></path>
+				<path d="M70 240 C 150 240, 150 240, 232 240" class="rail"></path>
+				<path d="M70 240 C 150 240, 150 350, 232 350" class="rail"></path>
+				<path d="M338 130 C 420 130, 420 240, 490 240" class="rail"></path>
+				<path d="M338 240 C 420 240, 420 240, 490 240" class="rail"></path>
+				<path d="M338 350 C 420 350, 420 240, 490 240" class="rail"></path>
+				<path d="M70 240 C 150 240, 150 130, 232 130" class="flow"></path>
+				<path d="M70 240 C 150 240, 150 350, 232 350" class="flow"></path>
+				<path d="M338 130 C 420 130, 420 240, 490 240" class="flow"></path>
+				<path d="M338 350 C 420 350, 420 240, 490 240" class="flow"></path>
+				<circle cx="70" cy="240" r="13" class="node in"></circle>
+				<g transform="translate(232,106)"><rect width="106" height="48" rx="11" class="proc"></rect><rect x="14" y="19" width="10" height="10" rx="3" class="dot"></rect></g>
+				<g transform="translate(232,216)"><rect width="106" height="48" rx="11" class="proc"></rect><rect x="14" y="19" width="10" height="10" rx="3" class="dot"></rect></g>
+				<g transform="translate(232,326)"><rect width="106" height="48" rx="11" class="proc"></rect><rect x="14" y="19" width="10" height="10" rx="3" class="dot"></rect></g>
+				<circle cx="490" cy="240" r="15" class="node out"></circle>
+				<path d="M484 240 l4 4 8 -9" class="check"></path>
+			</g>
+			<g class="chaos">
+				<path d="M96 120 C 240 60, 210 300, 360 250 S 380 120, 470 190" class="tangle a"></path>
+				<path d="M110 360 C 260 420, 300 180, 420 300 S 300 380, 470 340" class="tangle a"></path>
+				<path d="M90 240 C 220 200, 200 400, 380 360 S 470 220, 480 260" class="tangle b"></path>
+				<path d="M140 90 C 300 140, 120 260, 300 300 S 420 200, 440 120" class="tangle a"></path>
+				<g class="cn cn1"><circle cx="110" cy="130" r="9" class="cnode a"></circle></g>
+				<g class="cn cn2"><circle cx="360" cy="250" r="9" class="cnode b"></circle></g>
+				<g class="cn cn3"><circle cx="200" cy="330" r="9" class="cnode a"></circle></g>
+				<g class="cn cn1"><circle cx="430" cy="150" r="9" class="cnode a"></circle></g>
+				<g class="cn cn2"><circle cx="300" cy="120" r="9" class="cnode b"></circle></g>
+				<g class="cn cn3"><circle cx="450" cy="330" r="9" class="cnode a"></circle></g>
+			</g>
+		</svg>
+	</div>
+</section>
 
 <style>
 	.hero {
-		font-size: var(--text-lg);
-		text-align: center;
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 2.5rem;
+		align-items: center;
+		padding-block: clamp(3rem, 8vw, 6rem);
 	}
 
-	.title,
-	.tagline {
-		max-width: 37ch;
-		margin-inline: auto;
+	.intro {
+		gap: 1.6rem;
+		align-items: flex-start;
 	}
 
-	.title {
-		font-size: var(--text-3xl);
-		color: var(--gray-0);
+	h1 {
+		font-size: clamp(2.4rem, 5.2vw, 4rem);
+		max-width: 12ch;
 	}
 
-	@media (min-width: 50em) {
+	.hl {
+		color: var(--accent);
+	}
+
+	.lede {
+		font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+		color: var(--muted);
+		max-width: 34ch;
+	}
+
+	.actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		margin-top: 0.5rem;
+	}
+
+	.viz {
+		position: relative;
+		aspect-ratio: 560 / 480;
+		width: 100%;
+		border: 1px solid var(--line);
+		border-radius: var(--radius-lg);
+		background: linear-gradient(180deg, var(--surface), var(--bg));
+		overflow: hidden;
+	}
+
+	.viz-label {
+		position: absolute;
+		top: 0.9rem;
+		left: 1.1rem;
+		font-family: var(--font-mono);
+		font-size: 0.65rem;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--muted-2);
+	}
+
+	.viz svg {
+		width: 100%;
+		height: 100%;
+	}
+
+	.rail {
+		fill: none;
+		stroke: var(--line-strong);
+		stroke-width: 2;
+	}
+
+	.flow {
+		fill: none;
+		stroke: var(--accent);
+		stroke-width: 2.4;
+		stroke-linecap: round;
+		stroke-dasharray: 5 235;
+		animation: flowDash 3.4s linear infinite;
+	}
+
+	.node {
+		fill: var(--surface);
+		stroke: var(--accent);
+		stroke-width: 2.4;
+	}
+
+	.node.in {
+		fill: var(--bg);
+	}
+
+	.proc {
+		fill: var(--surface);
+		stroke: var(--accent);
+		stroke-width: 1.6;
+	}
+
+	.dot {
+		fill: var(--accent);
+		animation: nodePulse 2.6s ease-in-out infinite;
+	}
+
+	.check {
+		fill: none;
+		stroke: var(--accent);
+		stroke-width: 2.4;
+		stroke-linecap: round;
+		stroke-linejoin: round;
+	}
+
+	.tangle {
+		fill: none;
+		stroke-width: 2;
+	}
+
+	.tangle.a {
+		stroke: var(--warm);
+		opacity: 0.7;
+	}
+
+	.tangle.b {
+		stroke: var(--warm-2);
+		opacity: 0.6;
+	}
+
+	.cnode {
+		fill: var(--bg);
+		stroke-width: 2;
+	}
+
+	.cnode.a {
+		stroke: var(--warm);
+	}
+
+	.cnode.b {
+		stroke: var(--warm-2);
+	}
+
+	.order {
+		animation: orderFade 11s ease-in-out infinite;
+	}
+
+	.chaos {
+		animation: chaosFade 11s ease-in-out infinite;
+	}
+
+	.cn1 {
+		animation: jitter 5s ease-in-out infinite;
+	}
+	.cn2 {
+		animation: jitter 6.2s ease-in-out infinite;
+	}
+	.cn3 {
+		animation: jitter 7.1s ease-in-out infinite;
+	}
+
+	@keyframes chaosFade {
+		0%, 38% { opacity: 0.9; }
+		55%, 90% { opacity: 0; }
+		100% { opacity: 0.9; }
+	}
+	@keyframes orderFade {
+		0%, 42% { opacity: 0; }
+		60%, 86% { opacity: 1; }
+		100% { opacity: 0; }
+	}
+	@keyframes flowDash {
+		to { stroke-dashoffset: -240; }
+	}
+	@keyframes jitter {
+		0%, 100% { transform: translate(0, 0); }
+		25% { transform: translate(3px, -4px); }
+		50% { transform: translate(-4px, 3px); }
+		75% { transform: translate(2px, 4px); }
+	}
+	@keyframes nodePulse {
+		0%, 100% { opacity: 0.55; }
+		50% { opacity: 1; }
+	}
+
+	@media (min-width: 55em) {
 		.hero {
-			font-size: var(--text-xl);
-		}
-
-		.start {
-			text-align: start;
-		}
-
-		.start .title,
-		.start .tagline {
-			margin-inline: unset;
-		}
-
-		.title {
-			font-size: var(--text-5xl);
+			grid-template-columns: 1.05fr 0.95fr;
+			gap: 3rem;
 		}
 	}
 </style>
