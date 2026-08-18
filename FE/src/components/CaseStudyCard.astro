@@ -1,0 +1,126 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	entry: CollectionEntry<'work'>;
+}
+
+const { entry } = Astro.props;
+const { title, description, tags, metrics, img, img_alt } = entry.data;
+const href = `/work/${entry.id}/`;
+---
+
+<a class="case" href={href}>
+	<div class="thumb">
+		{
+			img ? (
+				<img src={img} alt={img_alt || ''} loading="lazy" />
+			) : (
+				<span class="ph">[project image]</span>
+			)
+		}
+	</div>
+	<div class="body">
+		<div class="tags">
+			{tags.slice(0, 2).map((t, i) => <span class:list={['pill', { accent: i === 0 }]}>{t}</span>)}
+		</div>
+		<h3>{title}</h3>
+		<p>{description}</p>
+		{
+			metrics.length > 0 && (
+				<div class="metrics">
+					{metrics.slice(0, 2).map((m) => (
+						<div class="metric">
+							<span class="value">{m.value}</span>
+							<span class="label">{m.label}</span>
+						</div>
+					))}
+				</div>
+			)
+		}
+	</div>
+</a>
+
+<style>
+	.case {
+		display: flex;
+		flex-direction: column;
+		background: var(--surface);
+		border: 1px solid var(--line);
+		border-radius: var(--radius);
+		overflow: hidden;
+		color: inherit;
+		transition: border-color var(--theme-transition), transform var(--theme-transition);
+	}
+
+	.case:hover {
+		border-color: var(--accent);
+		transform: translateY(-2px);
+		color: inherit;
+	}
+
+	.thumb {
+		aspect-ratio: 16 / 8;
+		display: grid;
+		place-items: center;
+		background: linear-gradient(135deg, var(--surface-2), var(--bg));
+		border-bottom: 1px solid var(--line);
+	}
+
+	.thumb img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.ph {
+		font-family: var(--font-mono);
+		font-size: 0.72rem;
+		color: var(--muted-2);
+	}
+
+	.body {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		padding: 1.5rem;
+	}
+
+	.tags {
+		display: flex;
+		gap: 0.5rem;
+	}
+
+	h3 {
+		font-size: 1.35rem;
+		font-weight: 600;
+	}
+
+	.body p {
+		font-size: 0.9rem;
+		color: var(--muted);
+	}
+
+	.metrics {
+		display: flex;
+		gap: 1.75rem;
+		margin-top: 0.25rem;
+	}
+
+	.metric {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.value {
+		font-family: var(--font-display);
+		font-size: 1.6rem;
+		font-weight: 700;
+		color: var(--accent);
+	}
+
+	.label {
+		font-size: 0.72rem;
+		color: var(--muted-2);
+	}
+</style>

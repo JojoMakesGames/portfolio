@@ -1,0 +1,174 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+	const games = await getCollection('games');
+	return games.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+type Props = { entry: CollectionEntry<'games'> };
+const { entry } = Astro.props;
+const { title, description, engine, jamNumber, jamTheme, playUrl, sourceUrl, img, img_alt } =
+	entry.data;
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={`${title} — Sabertooth Software`} description={description}>
+	<div class="arcade-bg">
+		<article>
+			<header class="wrapper intro stack">
+				<a class="back" href="/games/">← Games</a>
+				<div class="badges">
+					{jamNumber && <span class="jam">GAME JAM #{jamNumber}</span>}
+					{engine && <span class="pill">{engine}</span>}
+					{jamTheme && <span class="pill">Theme: {jamTheme}</span>}
+				</div>
+				<h1>{title}</h1>
+				<p class="lede">{description}</p>
+				<div class="actions">
+					{
+						playUrl && (
+							<a class="play" href={playUrl} target="_blank" rel="noopener">
+								<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+								Play on itch.io
+							</a>
+						)
+					}
+					{sourceUrl && <a class="source" href={sourceUrl} target="_blank" rel="noopener">Source</a>}
+				</div>
+			</header>
+
+			{img && <div class="wrapper shot"><img src={img} alt={img_alt || ''} /></div>}
+
+			<div class="wrapper prose">
+				<Content />
+			</div>
+		</article>
+	</div>
+</BaseLayout>
+
+<style>
+	.arcade-bg {
+		background: radial-gradient(900px 500px at 82% -6%, color-mix(in oklab, var(--arcade) 20%, transparent), transparent 62%);
+		min-height: 100%;
+	}
+
+	.intro {
+		gap: 1rem;
+		padding-block: clamp(2.5rem, 5vw, 4rem) 1.5rem;
+		align-items: flex-start;
+	}
+
+	.back {
+		font-family: var(--font-mono);
+		font-size: 0.8rem;
+		color: var(--muted);
+	}
+
+	.badges {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		align-items: center;
+	}
+
+	.jam {
+		font-family: var(--font-arcade);
+		font-size: 0.5rem;
+		color: var(--arcade-on);
+		background: var(--arcade);
+		border-radius: 4px;
+		padding: 0.4rem 0.55rem;
+	}
+
+	.intro h1 {
+		font-size: clamp(2.4rem, 5vw, 3.5rem);
+	}
+
+	.lede {
+		font-size: 1.15rem;
+		color: var(--muted);
+		max-width: 54ch;
+	}
+
+	.actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin-top: 0.5rem;
+	}
+
+	.play {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.7rem 1.2rem;
+		border-radius: var(--radius-sm);
+		background: var(--arcade);
+		color: var(--arcade-on);
+		font-weight: 600;
+	}
+
+	.play:hover {
+		color: var(--arcade-on);
+		filter: brightness(1.05);
+	}
+
+	.source {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.7rem 1.2rem;
+		border-radius: var(--radius-sm);
+		border: 1px solid var(--line-strong);
+		color: var(--fg);
+		font-weight: 500;
+	}
+
+	.source:hover {
+		border-color: var(--arcade);
+		color: var(--arcade);
+	}
+
+	.shot {
+		margin-block: 1.5rem;
+	}
+
+	.shot img {
+		width: 100%;
+		border-radius: var(--radius);
+		border: 1px solid var(--line-strong);
+	}
+
+	.prose {
+		max-width: 68ch;
+		padding-block: 1.5rem 3.5rem;
+	}
+
+	.prose :global(h2),
+	.prose :global(h3),
+	.prose :global(h4),
+	.prose :global(h5) {
+		margin-top: 2rem;
+		margin-bottom: 0.75rem;
+	}
+
+	.prose :global(p),
+	.prose :global(ul),
+	.prose :global(ol) {
+		margin-bottom: 1rem;
+	}
+
+	.prose :global(a) {
+		color: var(--arcade);
+		text-decoration: underline;
+		text-underline-offset: 0.2em;
+	}
+
+	.prose :global(blockquote) {
+		border-inline-start: 3px solid var(--arcade);
+		padding-inline-start: 1.25rem;
+		color: var(--muted);
+		font-style: italic;
+	}
+</style>

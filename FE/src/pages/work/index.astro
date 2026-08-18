@@ -1,0 +1,159 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CaseStudyCard from '../../components/CaseStudyCard.astro';
+import SectionBand from '../../components/SectionBand.astro';
+
+const work = (await getCollection('work')).sort(
+	(a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+const writing = (await getCollection('writing')).sort(
+	(a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+---
+
+<BaseLayout
+	title="Work — John Oatey"
+	description="Case studies: manual, error-prone processes turned into systems that run themselves."
+>
+	<header class="wrapper intro stack">
+		<span class="eyebrow">Work</span>
+		<h1>Manual chaos, turned into systems that run themselves.</h1>
+		<p class="lede">
+			[Draft] A few of the messes I've cleaned up. Each one: the pain, the approach, the
+			measurable result.
+		</p>
+	</header>
+
+	<section class="wrapper grid">
+		{work.map((entry) => <CaseStudyCard entry={entry} />)}
+	</section>
+
+	<SectionBand>
+		<div class="dd-head">
+			<span class="eyebrow plain">Writing / Deep dives</span>
+			<span class="rule"></span>
+			<span class="note">Technical notes, not client work</span>
+		</div>
+		<ul class="dd-list">
+			{
+				writing.map((entry) => (
+					<li>
+						<a href={`/writing/${entry.id}/`}>
+							<div class="dd-text">
+								<h3>{entry.data.title}</h3>
+								<p>{entry.data.description}</p>
+							</div>
+							<span class="dd-read">
+								Read
+								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></svg>
+							</span>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</SectionBand>
+</BaseLayout>
+
+<style>
+	.intro {
+		gap: 1rem;
+		padding-block: clamp(3rem, 6vw, 4.5rem) 2rem;
+		align-items: flex-start;
+	}
+
+	.intro h1 {
+		font-size: clamp(2.2rem, 4.5vw, 3.25rem);
+		max-width: 16ch;
+	}
+
+	.lede {
+		color: var(--muted);
+		max-width: 46ch;
+		font-size: 1.05rem;
+	}
+
+	.grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 1.25rem;
+		padding-bottom: clamp(3rem, 6vw, 4.5rem);
+	}
+
+	.dd-head {
+		display: flex;
+		align-items: center;
+		gap: 0.9rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.dd-head .eyebrow {
+		color: var(--muted);
+	}
+
+	.rule {
+		flex: 1;
+		height: 1px;
+		background: var(--line-strong);
+	}
+
+	.note {
+		font-size: 0.8rem;
+		color: var(--muted-2);
+	}
+
+	.dd-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		border: 1px solid var(--line-strong);
+		border-radius: var(--radius);
+		overflow: hidden;
+	}
+
+	.dd-list li + li {
+		border-top: 1px solid var(--line);
+	}
+
+	.dd-list a {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1.5rem;
+		padding: 1.4rem 1.6rem;
+		background: var(--inset);
+		color: inherit;
+	}
+
+	.dd-list a:hover {
+		color: inherit;
+		background: var(--surface-2);
+	}
+
+	.dd-text h3 {
+		font-size: 1.2rem;
+		font-weight: 600;
+	}
+
+	.dd-text p {
+		font-size: 0.9rem;
+		color: var(--muted);
+		margin-top: 0.3rem;
+	}
+
+	.dd-read {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		white-space: nowrap;
+		color: var(--accent);
+		font-size: 0.9rem;
+	}
+
+	@media (min-width: 48em) {
+		.grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+</style>

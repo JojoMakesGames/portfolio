@@ -2,13 +2,18 @@
 title: Bunker Buster
 publishDate: 2023-05-25 00:00:00
 img: /assets/bunker-buster.png
-img_alt: Pearls of silky soft white cotton, bubble up under vibrant lighting
+img_alt: Bunker Buster gameplay — a tank battling on a golf course
 description: |
   Second Game Jam!
 tags:
   - Game Dev
   - Godot
   - Learning
+engine: Godot
+jamNumber: 2
+jamTheme: Less is more
+playUrl: https://sabertooth-software.itch.io/bunker-buster
+sourceUrl: https://github.com/Sabertooth-Software/Bunker-Buster
 ---
 
 
